@@ -13,36 +13,39 @@ public class LineBreaker {
 
         System.out.println("Hello! I break lines.");
 
-        // Jos uudestaan true,
+        int tekstialueenLeveys = 0;
         boolean syoteOk = false;
         String tekstisyote = "";
         char valilyonti = ' ';
-        int tekstisyotteenPituus = tekstisyote.length();
-        int sananPituus = tekstisyotteenPituus + 1;
-        int pisinSananPituus = tekstisyotteenPituus + 1;
+        int tekstisyotteenPituus;
+        int sananPituus = 0;
+        int pisinSananPituus;
 
         do {
             // Pyydetään käyttäjää syöttämään tekstialueen leveys.
             System.out.println("Enter area width:");
             // Luetaan tekstialueen leveys käyttäjältä.
-            int tekstialueenLeveys = In.readInt();
+            tekstialueenLeveys = In.readInt();
             // Jos tekstialueen leveys on suurempi tai yhtä suuri kuin
             // määritelty minimileveys...
             if (tekstialueenLeveys >= MINTEKSTINLEVEYS) {
                 do {
+                    pisinSananPituus = 0;
                     System.out.println("Enter a line:");
                     syoteOk = true;
                     tekstisyote = In.readString();
+                    tekstisyotteenPituus = tekstisyote.length();
 
-                        for (int i = 0; i < tekstisyotteenPituus; i++) {
-                            if (i == tekstisyotteenPituus || tekstisyote.charAt(i) == valilyonti) {
-                                if (sananPituus < pisinSananPituus) {
-                                    pisinSananPituus = sananPituus;
-                                }
+                    for (int i = 0; i <= tekstisyotteenPituus; i++) {
+                        if (i == tekstisyotteenPituus || tekstisyote.charAt(i) == valilyonti) {
+                            if (sananPituus > pisinSananPituus) {
+                                pisinSananPituus = sananPituus;
                             }
+                            sananPituus = 0;
+                        } else {
                             sananPituus++;
                         }
-
+                    }
                 } while (pisinSananPituus > tekstialueenLeveys);
             } else {
                 System.out.println("Error!");
