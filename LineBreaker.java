@@ -20,6 +20,7 @@ public class LineBreaker {
         int tekstisyotteenPituus;
         int sananPituus = 0;
         int pisinSananPituus;
+        boolean liianPitkaSana = true;
 
         do {
             // Pyydetään käyttäjää syöttämään tekstialueen leveys.
@@ -37,6 +38,7 @@ public class LineBreaker {
                     tekstisyotteenPituus = tekstisyote.length();
 
                     for (int i = 0; i <= tekstisyotteenPituus; i++) {
+                        liianPitkaSana = pisinSananPituus > tekstialueenLeveys;
                         if (i == tekstisyotteenPituus || tekstisyote.charAt(i) == valilyonti) {
                             if (sananPituus > pisinSananPituus) {
                                 pisinSananPituus = sananPituus;
@@ -46,7 +48,10 @@ public class LineBreaker {
                             sananPituus++;
                         }
                     }
-                } while (pisinSananPituus > tekstialueenLeveys);
+                    if (liianPitkaSana) {
+                        System.out.println("Error!");
+                    }
+                } while (liianPitkaSana);
             } else {
                 System.out.println("Error!");
             }
