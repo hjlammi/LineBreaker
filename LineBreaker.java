@@ -61,15 +61,22 @@ public class LineBreaker {
                     System.out.println("Error!");
                 }
             } while (!syoteOk);
-            // Kysytään käyttäjältä, jatketaanko merkkijonojen rivittämistä.
-            System.out.println("Continue (y/n)?");
-            // Luetaan vastaus
-            vastaus = In.readChar();
+
+            // Niin kauan kuin vastaus on YES, kysytään käyttäjältä uusia rivitettäviä merkkijonoja.
             do {
+                // Kysytään käyttäjältä, jatketaanko merkkijonojen rivittämistä.
+                System.out.println("Continue (y/n)?");
+                // Luetaan vastaus.
+                vastaus = In.readChar();
+                // Vastaus on ok jos se on YES tai NO.
                 vastausOK = ((vastaus == YES) || (vastaus == NO));
-                if (vastaus == NO) {
-                    System.out.println("See you soon.");
+                if (vastausOK) {
+                    if (vastaus == NO) {
+                        System.out.println("See you soon.");
                     }
+                } else {
+                    System.out.println("Error!");
+                }
             } while (!vastausOK);
         } while (vastaus == YES);
 
