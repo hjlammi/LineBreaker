@@ -23,6 +23,7 @@ public class LineBreaker {
         boolean liianPitkaSana = true;
         char vastaus;
         boolean vastausOK = false;
+        boolean valilyontiOk = true;
 
         // Kerrotaan käyttäjälle, että pätkitään rivejä.
         System.out.println("Hello! I break lines.");
@@ -67,12 +68,19 @@ public class LineBreaker {
                             // kuin tekstialueen leveys.
                             liianPitkaSana = pisinSananPituus > tekstialueenLeveys;
                         }
+
+                        for (int j = 0; j <= tekstisyotteenPituus; j++) {
+                            if (tekstisyote.charAt(0) == valilyonti || (tekstisyote.charAt(tekstisyotteenPituus - 1 ) == valilyonti)) {
+                                valilyontiOk = false;
+                            }
+                        }
+
                         // Jos pisimmän sanan pituus on suurempi kuin tekstialueen leveys, tulostetaan virheilmoitus.
-                        if (liianPitkaSana) {
+                        if (liianPitkaSana || !valilyontiOk) {
                             System.out.println("Error!");
                         }
                     // Suoritetaan silmukkaa niin kauan kuin merkkijonossa on liian pitkä osa.
-                    } while (liianPitkaSana);
+                    } while (liianPitkaSana || !valilyontiOk);
                 } else {
                     System.out.println("Error!");
                 }
