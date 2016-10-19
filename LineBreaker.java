@@ -42,6 +42,8 @@ public class LineBreaker {
                         // Nollataan pisinSananPituus aina silmukan alussa, kun lähdetään
                         // pyytämään uutta merkkijonoa.
                         pisinSananPituus = 0;
+                        // Käännetään silmukan alussa lippu.
+                        valilyontiOk = true;
                         // Pyydetään käyttäjää antamaan merkkijono.
                         System.out.println("Enter a line:");
                         tekstisyote = In.readString();
@@ -69,23 +71,38 @@ public class LineBreaker {
                             liianPitkaSana = pisinSananPituus > tekstialueenLeveys;
                         }
 
-                        for (int j = 0; j <= tekstisyotteenPituus; j++) {
-                            if (tekstisyote.charAt(0) == valilyonti || (tekstisyote.charAt(tekstisyotteenPituus - 1 ) == valilyonti)) {
+                        for (int j = 0; j < tekstisyotteenPituus; j++) {
+                            if (tekstisyote.charAt(0) == valilyonti
+                            || (tekstisyote.charAt(tekstisyotteenPituus - 1) == valilyonti)
+                            || ((tekstisyote.charAt(j) == valilyonti)
+                            && (tekstisyote.charAt(j + 1) == valilyonti))) {
                                 valilyontiOk = false;
                             }
                         }
 
-                        // Jos pisimmän sanan pituus on suurempi kuin tekstialueen leveys, tulostetaan virheilmoitus.
+                        // Jos pisimmän sanan pituus on suurempi kuin tekstialueen leveys tai
+                        // välilyönti on väärässä paikassa, tulostetaan virheilmoitus.
                         if (liianPitkaSana || !valilyontiOk) {
                             System.out.println("Error!");
                         }
-                    // Suoritetaan silmukkaa niin kauan kuin merkkijonossa on liian pitkä osa.
+                    // Suoritetaan silmukkaa niin kauan kuin merkkijonossa on liian pitkä osa
+                    // tai jos välilyönti on väärässä paikassa.
                     } while (liianPitkaSana || !valilyontiOk);
                 } else {
                     System.out.println("Error!");
                 }
             // Suoritetaan silmukkaa kunnes käyttäjä syöttää kelvollisen tekstialueen leveyden.
             } while (!syoteOk);
+
+            sananPituus = 0;
+            for (int i = 0; (i < tekstisyote.length()) && (tekstisyote.charAt(i) != valilyonti); i++) {
+                System.out.print(tekstisyote.charAt(i));
+                sananPituus++;
+            }
+            for (int i = 0; (i < tekstisyote.length() - sananPituus - 1); i++) {
+                System.out.print("*");
+            }
+            System.out.println("/");
 
             do {
                 // Kysytään käyttäjältä, jatketaanko merkkijonojen rivittämistä.
