@@ -13,6 +13,7 @@ public class LineBreaker {
         final char YES = 'y';
         final char NO = 'n';
         final char EROTIN = ' ';
+        final String ERRORMESSAGE = "Error";
 
         int tekstialueenLeveys = 0;
         boolean syoteOk = false;
@@ -87,13 +88,13 @@ public class LineBreaker {
                         // System.out.println("liianPitkaSana: " + liianPitkaSana);
                         // System.out.println("valilyontiOk: " + valilyontiOk);
                         if (liianPitkaSana || !valilyontiOk) {
-                            System.out.println("Error1!");
+                            System.out.println(ERRORMESSAGE);
                         }
                     // Suoritetaan silmukkaa niin kauan kuin merkkijonossa on liian pitkä osa
                     // tai jos välilyönti on väärässä paikassa.
                     } while (liianPitkaSana || !valilyontiOk);
                 } else {
-                    System.out.println("Error2!");
+                    System.out.println(ERRORMESSAGE);
                 }
             // Suoritetaan silmukkaa kunnes käyttäjä syöttää kelvollisen tekstialueen leveyden.
             } while (!syoteOk);
@@ -127,7 +128,7 @@ public class LineBreaker {
                     }
                 // Jos vastaus ei ole ok eli ei ole YES tai NO, tulostetaan virheilmoitus.
                 } else {
-                    System.out.println("Error3!");
+                    System.out.println(ERRORMESSAGE);
                 }
             // Tingataan vastausta niin kauan kuin vastaus ei ole ok.
             } while (!vastausOK);
