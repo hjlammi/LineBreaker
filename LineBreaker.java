@@ -24,7 +24,7 @@ public class LineBreaker {
         boolean liianPitkaSana = true;
         char vastaus;
         boolean vastausOK = false;
-        boolean valilyontiOk = true;
+        boolean erotinOk = true;
 
         // Kerrotaan käyttäjälle, että pätkitään rivejä.
         System.out.println("Hello! I break lines.");
@@ -45,7 +45,7 @@ public class LineBreaker {
                         // pyytämään uutta merkkijonoa.
                         pisinSananPituus = 0;
                         // Käännetään silmukan alussa lippu.
-                        valilyontiOk = true;
+                        erotinOk = true;
                         // Pyydetään käyttäjää antamaan merkkijono.
                         System.out.println("Enter a line:");
                         // tekstisyote = In.readString();
@@ -79,7 +79,7 @@ public class LineBreaker {
                             || (tekstisyote.charAt(tekstisyotteenPituus - 1) == EROTIN)
                             || ((tekstisyote.charAt(j) == EROTIN)
                             && (tekstisyote.charAt(j + 1) == EROTIN))) {
-                                valilyontiOk = false;
+                                erotinOk = false;
                             }
                         }
 
@@ -87,12 +87,12 @@ public class LineBreaker {
                         // välilyönti on väärässä paikassa, tulostetaan virheilmoitus.
                         // System.out.println("liianPitkaSana: " + liianPitkaSana);
                         // System.out.println("valilyontiOk: " + valilyontiOk);
-                        if (liianPitkaSana || !valilyontiOk) {
+                        if (liianPitkaSana || !erotinOk) {
                             System.out.println(ERRORMESSAGE);
                         }
                     // Suoritetaan silmukkaa niin kauan kuin merkkijonossa on liian pitkä osa
                     // tai jos välilyönti on väärässä paikassa.
-                    } while (liianPitkaSana || !valilyontiOk);
+                } while (liianPitkaSana || !erotinOk);
                 } else {
                     System.out.println(ERRORMESSAGE);
                 }
