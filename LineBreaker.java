@@ -12,11 +12,11 @@ public class LineBreaker {
         final int MINTEKSTINLEVEYS = 3;
         final char YES = 'y';
         final char NO = 'n';
+        final char EROTIN = ' ';
 
         int tekstialueenLeveys = 0;
         boolean syoteOk = false;
         String tekstisyote = "";
-        char valilyonti = ' ';
         int tekstisyotteenPituus;
         int sananPituus = 0;
         int pisinSananPituus;
@@ -33,7 +33,8 @@ public class LineBreaker {
                 // Pyydetään käyttäjää syöttämään tekstialueen leveys.
                 System.out.println("Enter area width:");
                 // Luetaan tekstialueen leveys käyttäjältä.
-                tekstialueenLeveys = In.readInt();
+                //tekstialueenLeveys = In.readInt();
+                tekstialueenLeveys = 9;
                 // Jos tekstialueen leveys on suurempi tai yhtä suuri kuin
                 // määritelty minimileveys, syöte on ok.
                 if (tekstialueenLeveys >= MINTEKSTINLEVEYS) {
@@ -46,14 +47,15 @@ public class LineBreaker {
                         valilyontiOk = true;
                         // Pyydetään käyttäjää antamaan merkkijono.
                         System.out.println("Enter a line:");
-                        tekstisyote = In.readString();
+                        // tekstisyote = In.readString();
+                        tekstisyote = "testing, testing, one, two, three.";
 
                         tekstisyotteenPituus = tekstisyote.length();
 
                         for (int i = 0; i <= tekstisyotteenPituus; i++) {
                             // Jos i on yhtä suuri kuin tekstisyotteenPituus tai
                             // tekstisyote-merkkijonossa tulee vastaan välilyönti, suoritetaan if-lause.
-                            if (i == tekstisyotteenPituus || tekstisyote.charAt(i) == valilyonti) {
+                            if (i == tekstisyotteenPituus || tekstisyote.charAt(i) == EROTIN) {
                                 // Jos sanan pituus on suurempi kuin siihen asti pisimmän sanan pituus
                                 // niin nykyisen sanan pituus on pisin sanan pituus.
                                 if (sananPituus > pisinSananPituus) {
@@ -68,47 +70,53 @@ public class LineBreaker {
                             }
                             // Syöte sisältää liian pitkän sanan, jos pisimmän sanan pituus on suurempi
                             // kuin tekstialueen leveys.
-                            liianPitkaSana = pisinSananPituus > tekstialueenLeveys;
+                            liianPitkaSana = pisinSananPituus >= tekstialueenLeveys;
                         }
 
                         for (int j = 0; j < tekstisyotteenPituus; j++) {
-                            if (tekstisyote.charAt(0) == valilyonti
-                            || (tekstisyote.charAt(tekstisyotteenPituus - 1) == valilyonti)
-                            || ((tekstisyote.charAt(j) == valilyonti)
-                            && (tekstisyote.charAt(j + 1) == valilyonti))) {
+                            if (tekstisyote.charAt(0) == EROTIN
+                            || (tekstisyote.charAt(tekstisyotteenPituus - 1) == EROTIN)
+                            || ((tekstisyote.charAt(j) == EROTIN)
+                            && (tekstisyote.charAt(j + 1) == EROTIN))) {
                                 valilyontiOk = false;
                             }
                         }
 
                         // Jos pisimmän sanan pituus on suurempi kuin tekstialueen leveys tai
                         // välilyönti on väärässä paikassa, tulostetaan virheilmoitus.
+                        // System.out.println("liianPitkaSana: " + liianPitkaSana);
+                        // System.out.println("valilyontiOk: " + valilyontiOk);
                         if (liianPitkaSana || !valilyontiOk) {
-                            System.out.println("Error!");
+                            System.out.println("Error1!");
                         }
                     // Suoritetaan silmukkaa niin kauan kuin merkkijonossa on liian pitkä osa
                     // tai jos välilyönti on väärässä paikassa.
                     } while (liianPitkaSana || !valilyontiOk);
                 } else {
-                    System.out.println("Error!");
+                    System.out.println("Error2!");
                 }
             // Suoritetaan silmukkaa kunnes käyttäjä syöttää kelvollisen tekstialueen leveyden.
             } while (!syoteOk);
 
             sananPituus = 0;
-            for (int i = 0; (i < tekstisyote.length()) && (tekstisyote.charAt(i) != valilyonti); i++) {
+            for (int i = 0; i < tekstisyote.length(); i++) {
                 System.out.print(tekstisyote.charAt(i));
                 sananPituus++;
+                if (tekstisyote.charAt(i) == EROTIN) {
+                    for (int j = 0; (j < tekstisyote.length() - sananPituus - 1); j++) {
+                        System.out.print(EROTIN);
+                    }
+                    System.out.println("/");
+                    sananPituus = 0;
+                }
             }
-            for (int i = 0; (i < tekstisyote.length() - sananPituus - 1); i++) {
-                System.out.print("*");
-            }
-            System.out.println("/");
 
             do {
                 // Kysytään käyttäjältä, jatketaanko merkkijonojen rivittämistä.
                 System.out.println("Continue (y/n)?");
                 // Luetaan vastaus.
-                vastaus = In.readChar();
+                // vastaus = In.readChar();
+                vastaus = 'n';
                 // Vastaus on ok jos se on YES tai NO.
                 vastausOK = ((vastaus == YES) || (vastaus == NO));
                 // Tutkitaan onko vastaus ok.
@@ -119,7 +127,7 @@ public class LineBreaker {
                     }
                 // Jos vastaus ei ole ok eli ei ole YES tai NO, tulostetaan virheilmoitus.
                 } else {
-                    System.out.println("Error!");
+                    System.out.println("Error3!");
                 }
             // Tingataan vastausta niin kauan kuin vastaus ei ole ok.
             } while (!vastausOK);
