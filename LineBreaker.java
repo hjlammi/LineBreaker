@@ -14,6 +14,7 @@ public class LineBreaker {
         final char NO = 'n';
         final char EROTIN = ' ';
         final String ERRORMESSAGE = "Error";
+        final char RIVINPAATOSMERKKI = '/';
 
         int tekstialueenLeveys = 0;
         boolean syoteOk = false;
@@ -49,7 +50,7 @@ public class LineBreaker {
                         // Pyydetään käyttäjää antamaan merkkijono.
                         System.out.println("Enter a line:");
                         // tekstisyote = In.readString();
-                        tekstisyote = "testing, testing, one, two, three.";
+                        tekstisyote = "one, two";
 
                         tekstisyotteenPituus = tekstisyote.length();
 
@@ -86,7 +87,7 @@ public class LineBreaker {
                         // Jos pisimmän sanan pituus on suurempi kuin tekstialueen leveys tai
                         // välilyönti on väärässä paikassa, tulostetaan virheilmoitus.
                         // System.out.println("liianPitkaSana: " + liianPitkaSana);
-                        // System.out.println("valilyontiOk: " + valilyontiOk);
+                        // System.out.println("erotinOk: " + erotinOk);
                         if (liianPitkaSana || !erotinOk) {
                             System.out.println(ERRORMESSAGE);
                         }
@@ -107,10 +108,11 @@ public class LineBreaker {
                     for (int j = 0; (j < tekstisyote.length() - sananPituus - 1); j++) {
                         System.out.print(EROTIN);
                     }
-                    System.out.println("/");
+                    System.out.println(RIVINPAATOSMERKKI);
                     sananPituus = 0;
                 }
             }
+            System.out.println();
 
             do {
                 // Kysytään käyttäjältä, jatketaanko merkkijonojen rivittämistä.
