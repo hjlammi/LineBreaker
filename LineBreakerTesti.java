@@ -55,7 +55,7 @@ public class LineBreakerTesti {
             // rivin katkaiseva erotin, tulostetaan merkki indeksistä, joka on jo
             // rivitettyjen merkkien ja laskuri-rivinTulostetutMerkit:n summa.
             while (tulostettavaIndeksi < rivinViimIndeksi) {
-                if (tulostetutMerkit < tekstialueenLeveys - 1) {
+                if (ekaRivi) {
                     tulostettavaIndeksi = tulostetutMerkit + rivinTulostetutMerkit;
                 } else {
                     tulostettavaIndeksi = tulostetutMerkit + rivinTulostetutMerkit + 1;
