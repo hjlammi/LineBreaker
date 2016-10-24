@@ -47,21 +47,21 @@ public class LineBreakerTesti {
             // System.out.println(rivinLoppu);
 
 
-            int j = 0;
+            int rivinTulostetutMerkit = 0;
             int tulostettavaIndeksi = 0;
             // System.out.println("rivitetyt" + tulostetutMerkit);
             // Niin kauan kuin tulostettavaIndeksi on pienempi kuin rivin loppu eli
             // rivin katkaiseva erotin, tulostetaan merkki indeksistä, joka on jo
-            // rivitettyjen merkkien ja laskuri-j:n summa.
+            // rivitettyjen merkkien ja laskuri-rivinTulostetutMerkit:n summa.
             while (tulostettavaIndeksi < rivinViimIndeksi) {
                 if (tulostetutMerkit < tekstialueenLeveys - 1) {
-                    tulostettavaIndeksi = tulostetutMerkit + j;
-                } else tulostettavaIndeksi = tulostetutMerkit + j + 1;
-                // System.out.print(j + " ");
+                    tulostettavaIndeksi = tulostetutMerkit + rivinTulostetutMerkit;
+                } else tulostettavaIndeksi = tulostetutMerkit + rivinTulostetutMerkit + 1;
+                // System.out.print(rivinTulostetutMerkit + " ");
                 System.out.print(syote.charAt(tulostettavaIndeksi));
-                j++;
+                rivinTulostetutMerkit++;
             }
-            // System.out.println(j);
+            // System.out.println(rivinTulostetutMerkit);
             // Merkkejä on tulostettu riviin rivin viimeisen merkin indeksin + 1 verran.
             tulostetutMerkit = rivinViimIndeksi + 1;
             // Jos tulostettujen merkkien määrä on yhtä suuri kuin tekstisyotteenPituus, on kaikki merkit
@@ -71,7 +71,7 @@ public class LineBreakerTesti {
             }
 
             char rivinPaatosMerkki = '/';
-            int riviaJaljella = tekstialueenLeveys - j - 1;
+            int riviaJaljella = tekstialueenLeveys - rivinTulostetutMerkit - 1;
             // System.out.println();
             // System.out.println(rivinLoppu);
             // System.out.println(riviaJaljella);
