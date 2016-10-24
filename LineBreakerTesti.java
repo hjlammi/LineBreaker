@@ -8,7 +8,7 @@ public class LineBreakerTesti {
         final char EROTIN = ' ';
         int tutkittavaIndeksi;
         int rivinViimIndeksi = 0;
-        int rivitetytMerkit = 0;
+        int tulostetutMerkit = 0;
         boolean kaikkiRivitetty = false;
         int syotteenViimIndeksi = tekstisyotteenPituus - 1;
 
@@ -49,24 +49,24 @@ public class LineBreakerTesti {
 
             int j = 0;
             int tulostettavaIndeksi = 0;
-            // System.out.println("rivitetyt" + rivitetytMerkit);
+            // System.out.println("rivitetyt" + tulostetutMerkit);
             // Niin kauan kuin tulostettavaIndeksi on pienempi kuin rivin loppu eli
             // rivin katkaiseva erotin, tulostetaan merkki indeksistä, joka on jo
             // rivitettyjen merkkien ja laskuri-j:n summa.
             while (tulostettavaIndeksi < rivinViimIndeksi) {
-                if (rivitetytMerkit < tekstialueenLeveys - 1) {
-                    tulostettavaIndeksi = rivitetytMerkit + j;
-                } else tulostettavaIndeksi = rivitetytMerkit + j + 1;
+                if (tulostetutMerkit < tekstialueenLeveys - 1) {
+                    tulostettavaIndeksi = tulostetutMerkit + j;
+                } else tulostettavaIndeksi = tulostetutMerkit + j + 1;
                 // System.out.print(j + " ");
                 System.out.print(syote.charAt(tulostettavaIndeksi));
                 j++;
             }
             // System.out.println(j);
             // Merkkejä on tulostettu riviin rivin viimeisen merkin indeksin + 1 verran.
-            rivitetytMerkit = rivinViimIndeksi + 1;
+            tulostetutMerkit = rivinViimIndeksi + 1;
             // Jos tulostettujen merkkien määrä on yhtä suuri kuin tekstisyotteenPituus, on kaikki merkit
             // tulostettu.
-            if (rivitetytMerkit == tekstisyotteenPituus) {
+            if (tulostetutMerkit == tekstisyotteenPituus) {
                 kaikkiRivitetty = true;
             }
 
