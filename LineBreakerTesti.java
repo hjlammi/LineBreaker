@@ -11,17 +11,18 @@ public class LineBreakerTesti {
         int tulostetutMerkit = 0;
         boolean kaikkiRivitetty = false;
         int syotteenViimIndeksi = tekstisyotteenPituus - 1;
+        boolean ekaRivi = true;
 
         // System.out.println(tekstisyotteenPituus);
         do {
             // Erotinta ei ole vielä löytynyt.
             erotinLoytyi = false;
 
-            // if (tekstisyotteenPituus - rivinLoppu > tekstialueenLeveys) {
+            if (ekaRivi) {
+                tutkittavaIndeksi = tekstialueenLeveys;
+            } else {
                 tutkittavaIndeksi = rivinViimIndeksi + 1 + tekstialueenLeveys;
-            // } else {
-                // tutkittavaIndeksi = tekstisyotteenPituus - 1;
-            // }
+            }
 
             // System.out.println(tutkittavaIndeksi);
             do {
@@ -56,7 +57,9 @@ public class LineBreakerTesti {
             while (tulostettavaIndeksi < rivinViimIndeksi) {
                 if (tulostetutMerkit < tekstialueenLeveys - 1) {
                     tulostettavaIndeksi = tulostetutMerkit + rivinTulostetutMerkit;
-                } else tulostettavaIndeksi = tulostetutMerkit + rivinTulostetutMerkit + 1;
+                } else {
+                    tulostettavaIndeksi = tulostetutMerkit + rivinTulostetutMerkit + 1;
+                }
                 // System.out.print(rivinTulostetutMerkit + " ");
                 System.out.print(syote.charAt(tulostettavaIndeksi));
                 rivinTulostetutMerkit++;
@@ -80,6 +83,7 @@ public class LineBreakerTesti {
                 System.out.print(EROTIN);
             }
             System.out.println(rivinPaatosMerkki);
+            ekaRivi = false;
 
         } while (!kaikkiRivitetty);
     }
