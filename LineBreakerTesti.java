@@ -62,23 +62,19 @@ public class LineBreakerTesti {
 
             int rivinTulostetutMerkit = 0;
 
-            // System.out.println(tulostettavaIndeksi);
-            // System.out.println(tulostetutMerkit);
-            while (tulostetutMerkit <= rivinViimIndeksi) {
+            while (tulostettavaIndeksi <= rivinViimIndeksi) {
                 System.out.print(syote.charAt(tulostettavaIndeksi));
                 rivinTulostetutMerkit++;
                 tulostettavaIndeksi++;
-                tulostetutMerkit++;
             }
             tulostettavaIndeksi++;
-            tulostetutMerkit++;
 
             // System.out.println(rivinTulostetutMerkit);
             // Merkkejä on tulostettu riviin rivin viimeisen merkin indeksin + 1 verran.
             // tulostetutMerkit = rivinViimIndeksi + 1;
             // Jos tulostettujen merkkien määrä on yhtä suuri kuin tekstisyotteenPituus, on kaikki merkit
             // tulostettu.
-            if (tulostetutMerkit >= tekstisyotteenPituus) {
+            if (tulostettavaIndeksi >= tekstisyotteenPituus) {
                 kaikkiRivitetty = true;
             }
 
