@@ -17,11 +17,11 @@ public class LineBreakerTesti {
 
         // System.out.println(tekstisyotteenPituus);
         do {
-            // Erotinta ei ole vielä löytynyt.
+            // Erotinta ei ole vielä kierroksen alussa löytynyt.
             erotinLoytyi = false;
 
             // Jos on kyseessä ensimmäinen rivi, tutkittavaksi indeksiksi on
-            // tekstialueen leveys - 1 (RIVINPAATOSMERKKI), muuten tutkittava indeksi on
+            // tekstialueen leveys - 1, muuten tutkittava indeksi on
             // rivin viimeinen indeksi + 1 (EROTIN) + tekstialueen leveys.
             if (ekaRivi) {
                 tutkittavaIndeksi = tekstialueenLeveys - 1;
@@ -30,19 +30,25 @@ public class LineBreakerTesti {
             }
 
             System.out.println(tutkittavaIndeksi);
+            // System.out.println(syote.charAt(tutkittavaIndeksi));
+            // Silmukka tutkii, milloin rivi pitää katkaista.
             do {
+                // Jos tutkittava indeksi on pienempi tai yhtä suuri kuin merkkijonon viimeisen
+                // merkin indeksi, lähdetään rivin loppupäästä tutkimaan, milloin tulee vastaan ensimmäinen erotin.
                 if (tutkittavaIndeksi <= syotteenViimIndeksi) {
                 // System.out.println(syote.charAt(i));
-                // Lähdetään rivin loppupäästä tutkimaan, milloin tulee vastaan ensimmäinen erotin.
-                // Jos tutkittavassa indeksissä oleva merkki on erotin, rivinLoppu-muuttuja saa
-                // tutkittavan indeksin arvon.
+                // Jos tutkittavassa indeksissä oleva merkki on erotin, rivin viimeinen indeksi on
+                // tutkittavan indeksin arvo - 1 (eli vähennetään EROTIN).
                     if (syote.charAt(tutkittavaIndeksi) == EROTIN) {
                         rivinViimIndeksi = tutkittavaIndeksi - 1;
                         // Käännetään lippu.
                         erotinLoytyi = true;
                     }
+                // Jos tutkittava indeksi suurempi kuin merkkijonon viimeinen indeksi
+                // rivin viimeinen indeksi on merkkijonon viimeinen indeksi.
                 } else {
                     rivinViimIndeksi = syotteenViimIndeksi;
+                    // Käännetään lippu, jotta päästään silmukasta.
                     erotinLoytyi = true;
                 }
                 // Joka kierroksella vähennetään yksi, jotta päästään liikkumaan merkkijonossa taaksepäin.
