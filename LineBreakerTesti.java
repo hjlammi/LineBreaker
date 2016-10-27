@@ -3,7 +3,7 @@ public class LineBreakerTesti {
     public static void main(String[] args) {
         String syote = "hello, world, he said, and lorem ipsum dolor sit amet vähän lisää lol bitte schön";
         int tekstisyotteenPituus = syote.length();
-        int tekstialueenLeveys = 15;
+        int tekstialueenLeveys = 8;
         boolean erotinLoytyi = false;
         final char EROTIN = ' ';
         int tutkittavaIndeksi;
@@ -18,8 +18,10 @@ public class LineBreakerTesti {
             // Erotinta ei ole vielä löytynyt.
             erotinLoytyi = false;
 
+            // Jos on kyseessä ensimmäinen rivi, tutkittavaksi indeksiksi asetetaan
+            // tekstialueen leveys.
             if (ekaRivi) {
-                tutkittavaIndeksi = tekstialueenLeveys;
+                tutkittavaIndeksi = tekstialueenLeveys - 1;
             } else {
                 tutkittavaIndeksi = rivinViimIndeksi + 1 + tekstialueenLeveys;
             }
