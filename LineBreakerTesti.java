@@ -1,11 +1,13 @@
 
 public class LineBreakerTesti {
     public static void main(String[] args) {
+        final char RIVINPAATOSMERKKI = '/';
+        final char EROTIN = ' ';
+
         String syote = "hello, world, he said, and lorem ipsum dolor sit amet vähän lisää lol bitte schön";
         int tekstisyotteenPituus = syote.length();
-        int tekstialueenLeveys = 8;
+        int tekstialueenLeveys = 15;
         boolean erotinLoytyi = false;
-        final char EROTIN = ' ';
         int tutkittavaIndeksi;
         int rivinViimIndeksi = 0;
         int tulostetutMerkit = 0;
@@ -18,15 +20,16 @@ public class LineBreakerTesti {
             // Erotinta ei ole vielä löytynyt.
             erotinLoytyi = false;
 
-            // Jos on kyseessä ensimmäinen rivi, tutkittavaksi indeksiksi asetetaan
-            // tekstialueen leveys.
+            // Jos on kyseessä ensimmäinen rivi, tutkittavaksi indeksiksi on
+            // tekstialueen leveys - 1 (RIVINPAATOSMERKKI), muuten tutkittava indeksi on
+            // rivin viimeinen indeksi + 1 (EROTIN) + tekstialueen leveys.
             if (ekaRivi) {
                 tutkittavaIndeksi = tekstialueenLeveys - 1;
             } else {
                 tutkittavaIndeksi = rivinViimIndeksi + 1 + tekstialueenLeveys;
             }
 
-            // System.out.println(tutkittavaIndeksi);
+            System.out.println(tutkittavaIndeksi);
             do {
                 if (tutkittavaIndeksi <= syotteenViimIndeksi) {
                 // System.out.println(syote.charAt(i));
@@ -75,7 +78,6 @@ public class LineBreakerTesti {
                 kaikkiRivitetty = true;
             }
 
-            char rivinPaatosMerkki = '/';
             int riviaJaljella = tekstialueenLeveys - rivinTulostetutMerkit - 1;
             // System.out.println();
             // System.out.println(rivinLoppu);
@@ -84,7 +86,7 @@ public class LineBreakerTesti {
             for (int k = 0; k < riviaJaljella; k++) {
                 System.out.print(EROTIN);
             }
-            System.out.println(rivinPaatosMerkki);
+            System.out.println(RIVINPAATOSMERKKI);
             ekaRivi = false;
 
         } while (!kaikkiRivitetty);
