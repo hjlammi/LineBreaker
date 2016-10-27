@@ -6,7 +6,7 @@ public class LineBreakerTesti {
 
         String syote = "hello, world, he said, and lorem ipsum dolor sit amet vähän lisää lol bitte schön";
         int tekstisyotteenPituus = syote.length();
-        int tekstialueenLeveys = 10;
+        int tekstialueenLeveys = 14;
         boolean erotinLoytyi = false;
         int tutkittavaIndeksi;
         int rivinViimIndeksi = 0;
@@ -16,7 +16,6 @@ public class LineBreakerTesti {
         int tulostetutMerkit = 0;
         int tulostettavaIndeksi = 0;
 
-        // System.out.println(tekstisyotteenPituus);
         do {
             // Erotinta ei ole vielä kierroksen alussa löytynyt.
             erotinLoytyi = false;
@@ -30,16 +29,13 @@ public class LineBreakerTesti {
                 tutkittavaIndeksi = rivinViimIndeksi + 1 + tekstialueenLeveys;
             }
 
-            // System.out.println(tutkittavaIndeksi);
-            // System.out.println(syote.charAt(tutkittavaIndeksi));
             // Silmukka tutkii, milloin rivi pitää katkaista.
             do {
                 // Jos tutkittava indeksi on pienempi tai yhtä suuri kuin merkkijonon viimeisen
                 // merkin indeksi, lähdetään rivin loppupäästä tutkimaan, milloin tulee vastaan ensimmäinen erotin.
                 if (tutkittavaIndeksi <= syotteenViimIndeksi) {
-                // System.out.println(syote.charAt(i));
-                // Jos tutkittavassa indeksissä oleva merkki on erotin, rivin viimeinen indeksi on
-                // tutkittavan indeksin arvo - 1 (eli vähennetään EROTIN).
+                    // Jos tutkittavassa indeksissä oleva merkki on erotin, rivin viimeinen indeksi on
+                    // tutkittavan indeksin arvo - 1 (eli vähennetään EROTIN).
                     if (syote.charAt(tutkittavaIndeksi) == EROTIN) {
                         rivinViimIndeksi = tutkittavaIndeksi - 1;
                         // Käännetään lippu.
@@ -59,36 +55,41 @@ public class LineBreakerTesti {
             } while (tutkittavaIndeksi >= 0 && !erotinLoytyi);
             // System.out.println(rivinLoppu);
 
-
+            // Esitellään ja nollataan laskuri, joka pitää kirjaa riville tulostetuista merkeistä.
             int rivinTulostetutMerkit = 0;
 
+            // Niin kauan kuin tulostettava indeksi saavuttaa rivin viimeisen indeksin tulostetaan
+            // merkki tulostettavasta indeksistä.
             while (tulostettavaIndeksi <= rivinViimIndeksi) {
                 System.out.print(syote.charAt(tulostettavaIndeksi));
+                // Kasvatetaan laskureita.
                 rivinTulostetutMerkit++;
                 tulostettavaIndeksi++;
             }
+            // Kasvatetaan vielä tulostettavaa indeksiä yhdellä, jotta päästään seuraavalla kierroksella
+            // erottimen ohi seuraavan rivin ekaan tulostettavaan merkkiin.
             tulostettavaIndeksi++;
 
-            // System.out.println(rivinTulostetutMerkit);
-            // Merkkejä on tulostettu riviin rivin viimeisen merkin indeksin + 1 verran.
-            // tulostetutMerkit = rivinViimIndeksi + 1;
-            // Jos tulostettujen merkkien määrä on yhtä suuri kuin tekstisyotteenPituus, on kaikki merkit
-            // tulostettu.
+            // Jos tulostettujen merkkien määrä on yhtä suuri tai suurempi kuin tekstisyotteenPituus,
+            // on kaikki merkit tulostettu.
             if (tulostettavaIndeksi >= tekstisyotteenPituus) {
                 kaikkiRivitetty = true;
             }
 
+            // Esitellään ja alustetaan muuttuja, joka on yhtä kuin tekstialueen leveys
+            // josta on vähennetty rivin tulostetut merkit sekä RIVINPAATOSMERKIN viemä yksi paikka.
             int riviaJaljella = tekstialueenLeveys - rivinTulostetutMerkit - 1;
-            // System.out.println();
-            // System.out.println(rivinLoppu);
-            // System.out.println(riviaJaljella);
 
+            // Silmukassa tulostetaan erotinta niin kauan kuin rivissä on sille tilaa.
             for (int k = 0; k < riviaJaljella; k++) {
                 System.out.print(EROTIN);
             }
+            // Lopuksi tulostetaan päätösmerkki.
             System.out.println(RIVINPAATOSMERKKI);
+            // Käännetään lippu, ensimmäisen rivin päättymisen merkiksi.
             ekaRivi = false;
 
+        // Tulostetaan rivejä, niin kauan kuin kaikki on rivitetty.
         } while (!kaikkiRivitetty);
     }
 }
