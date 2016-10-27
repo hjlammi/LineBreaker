@@ -6,14 +6,15 @@ public class LineBreakerTesti {
 
         String syote = "hello, world, he said, and lorem ipsum dolor sit amet vähän lisää lol bitte schön";
         int tekstisyotteenPituus = syote.length();
-        int tekstialueenLeveys = 15;
+        int tekstialueenLeveys = 10;
         boolean erotinLoytyi = false;
         int tutkittavaIndeksi;
         int rivinViimIndeksi = 0;
-        int tulostetutMerkit = 0;
         boolean kaikkiRivitetty = false;
         int syotteenViimIndeksi = tekstisyotteenPituus - 1;
         boolean ekaRivi = true;
+        int tulostetutMerkit = 0;
+        int tulostettavaIndeksi = 0;
 
         // System.out.println(tekstisyotteenPituus);
         do {
@@ -60,27 +61,24 @@ public class LineBreakerTesti {
 
 
             int rivinTulostetutMerkit = 0;
-            int tulostettavaIndeksi = 0;
-            // System.out.println("rivitetyt" + tulostetutMerkit);
-            // Niin kauan kuin tulostettavaIndeksi on pienempi kuin rivin loppu,
-            // tulostetaan merkki indeksistä, joka on kaikkien tulostettujen merkkien ja
-            // kyseisen rivin tulostettujen merkien summa.
-            while (tulostettavaIndeksi < rivinViimIndeksi) {
-                if (ekaRivi) {
-                    tulostettavaIndeksi = tulostetutMerkit + rivinTulostetutMerkit;
-                } else {
-                    tulostettavaIndeksi = tulostetutMerkit + rivinTulostetutMerkit + 1;
-                }
-                // System.out.print(rivinTulostetutMerkit + " ");
+
+            // System.out.println(tulostettavaIndeksi);
+            // System.out.println(tulostetutMerkit);
+            while (tulostetutMerkit <= rivinViimIndeksi) {
                 System.out.print(syote.charAt(tulostettavaIndeksi));
                 rivinTulostetutMerkit++;
+                tulostettavaIndeksi++;
+                tulostetutMerkit++;
             }
+            tulostettavaIndeksi++;
+            tulostetutMerkit++;
+
             // System.out.println(rivinTulostetutMerkit);
             // Merkkejä on tulostettu riviin rivin viimeisen merkin indeksin + 1 verran.
-            tulostetutMerkit = rivinViimIndeksi + 1;
+            // tulostetutMerkit = rivinViimIndeksi + 1;
             // Jos tulostettujen merkkien määrä on yhtä suuri kuin tekstisyotteenPituus, on kaikki merkit
             // tulostettu.
-            if (tulostetutMerkit == tekstisyotteenPituus) {
+            if (tulostetutMerkit >= tekstisyotteenPituus) {
                 kaikkiRivitetty = true;
             }
 
