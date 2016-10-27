@@ -29,7 +29,7 @@ public class LineBreakerTesti {
                 tutkittavaIndeksi = rivinViimIndeksi + 1 + tekstialueenLeveys;
             }
 
-            System.out.println(tutkittavaIndeksi);
+            // System.out.println(tutkittavaIndeksi);
             // System.out.println(syote.charAt(tutkittavaIndeksi));
             // Silmukka tutkii, milloin rivi pitää katkaista.
             do {
@@ -62,9 +62,9 @@ public class LineBreakerTesti {
             int rivinTulostetutMerkit = 0;
             int tulostettavaIndeksi = 0;
             // System.out.println("rivitetyt" + tulostetutMerkit);
-            // Niin kauan kuin tulostettavaIndeksi on pienempi kuin rivin loppu eli
-            // rivin katkaiseva erotin, tulostetaan merkki indeksistä, joka on jo
-            // rivitettyjen merkkien ja laskuri-rivinTulostetutMerkit:n summa.
+            // Niin kauan kuin tulostettavaIndeksi on pienempi kuin rivin loppu,
+            // tulostetaan merkki indeksistä, joka on kaikkien tulostettujen merkkien ja
+            // kyseisen rivin tulostettujen merkien summa.
             while (tulostettavaIndeksi < rivinViimIndeksi) {
                 if (ekaRivi) {
                     tulostettavaIndeksi = tulostetutMerkit + rivinTulostetutMerkit;
