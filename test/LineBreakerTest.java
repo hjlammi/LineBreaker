@@ -5,8 +5,12 @@ import org.junit.Test;
 public class LineBreakerTest {
 
     @Test
-    public void ekanRivinViimIndeksi() {
+    public void viimIndeksiEkanRivinLopussa() {
         assertEquals(7, LineBreaker4.etsiRivinViimTulostettavaIndeksi("Testing, testing. One, two, three.", ' ', 8));
     }
 
+    @Test
+    public void viimIndeksiEnnenEkanRivinLopussa() {
+        assertEquals(4, LineBreaker4.etsiRivinViimTulostettavaIndeksi("Test, test. One, two, three.", ' ', 8));
+    }
 }
