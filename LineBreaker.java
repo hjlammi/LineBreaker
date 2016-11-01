@@ -13,7 +13,7 @@ public class LineBreaker {
         final char YES = 'y';
         final char NO = 'n';
         final char EROTIN = ' ';
-        final String ERRORMESSAGE = "Error";
+        final String ERRORMESSAGE = "Error!";
         final char RIVINPAATOSMERKKI = '/';
 
         int tekstialueenLeveys = 0;
@@ -99,14 +99,13 @@ public class LineBreaker {
             // Suoritetaan silmukkaa kunnes käyttäjä syöttää kelvollisen tekstialueen leveyden.
             } while (!syoteOk);
 
-            rivita(tekstisyote, tekstialueenLeveys);
+            System.out.print(rivita(tekstisyote, EROTIN, tekstialueenLeveys, RIVINPAATOSMERKKI));
 
             do {
                 // Kysytään käyttäjältä, jatketaanko merkkijonojen rivittämistä.
                 System.out.println("Continue (y/n)?");
                 // Luetaan vastaus.
-                // vastaus = In.readChar();
-                vastaus = 'n';
+                vastaus = In.readChar();
                 // Vastaus on ok jos se on YES tai NO.
                 vastausOK = ((vastaus == YES) || (vastaus == NO));
                 // Tutkitaan onko vastaus ok.
@@ -125,94 +124,88 @@ public class LineBreaker {
         } while (vastaus == YES);
     }
 
-    public static void rivita(String syote, int tekstialueenLeveys) {
-        final char RIVINPAATOSMERKKI = '/';
-        final char EROTIN = ' ';
-
-        int tekstisyotteenPituus = syote.length();
+    public static int etsiRivinViimTulostettavaIndeksi(String syote, char erotin, int rivinPituus, int rivinEnsimmainenIndeksi) {
         boolean erotinLoytyi = false;
-        int tutkittavaIndeksi;
-        int rivinViimIndeksi = 0;
-        boolean kaikkiRivitetty = false;
-        int syotteenViimIndeksi = tekstisyotteenPituus - 1;
-        boolean ekaRivi = true;
-        int tulostetutMerkit = 0;
-        int tulostettavaIndeksi = 0;
+        int tutkittavaIndeksi = rivinEnsimmainenIndeksi;
+        int rivinViimTulostettavaIndeksi = 0;
+        int rivinViimTutkittavaIndeksi = rivinEnsimmainenIndeksi + rivinPituus;
+        int syotteenViimIndeksi = syote.length() - 1;
 
         do {
-            // Erotinta ei ole vielä kierroksen alussa löytynyt.
-            erotinLoytyi = false;
-
-            // Jos on kyseessä ensimmäinen rivi, tutkittavaksi indeksiksi on
-            // tekstialueen leveys - 1, muuten tutkittava indeksi on
-            // rivin viimeinen indeksi + 1 (EROTIN) + tekstialueen leveys.
-            if (ekaRivi) {
-                tutkittavaIndeksi = tekstialueenLeveys - 1;
-            } else {
-                tutkittavaIndeksi = rivinViimIndeksi + 1 + tekstialueenLeveys;
+            if (syote.charAt(tutkittavaIndeksi) == erotin) {
+                rivinViimTulostettavaIndeksi = tutkittavaIndeksi - 1;
+            } else if (tutkittavaIndeksi >= syotteenViimIndeksi) {
+                rivinViimTulostettavaIndeksi = syotteenViimIndeksi;
+                erotinLoytyi = true;
             }
+            tutkittavaIndeksi++;
+        } while (tutkittavaIndeksi <= rivinViimTutkittavaIndeksi && !erotinLoytyi);
+        return rivinViimTulostettavaIndeksi;
+    }
 
-            // Silmukka tutkii, milloin rivi pitää katkaista.
-            do {
-                // Jos tutkittava indeksi on pienempi tai yhtä suuri kuin merkkijonon viimeisen
-                // merkin indeksi, lähdetään rivin loppupäästä tutkimaan, milloin tulee vastaan ensimmäinen erotin.
-                if (tutkittavaIndeksi <= syotteenViimIndeksi) {
-                    // Jos tutkittavassa indeksissä oleva merkki on erotin, rivin viimeinen indeksi on
-                    // tutkittavan indeksin arvo - 1 (eli vähennetään EROTIN).
-                    if (syote.charAt(tutkittavaIndeksi) == EROTIN) {
-                        rivinViimIndeksi = tutkittavaIndeksi - 1;
-                        // Käännetään lippu.
-                        erotinLoytyi = true;
-                    }
-                // Jos tutkittava indeksi suurempi kuin merkkijonon viimeinen indeksi
-                // rivin viimeinen indeksi on merkkijonon viimeinen indeksi.
-                } else {
-                    rivinViimIndeksi = syotteenViimIndeksi;
-                    // Käännetään lippu, jotta päästään silmukasta.
-                    erotinLoytyi = true;
+    public static boolean tutkiOnkoLiianPitkiaSanoja(String syote, char erotin, int rivinPituus) {
+        int tekstisyotteenPituus = syote.length();
+        int sananPituus = 0;
+        int pisinSananPituus = 0;
+        boolean liianPitkaSana = true;
+
+        for (int i = 0; i <= tekstisyotteenPituus; i++) {
+            // Jos i on yhtä suuri kuin tekstisyotteenPituus tai
+            // syote-merkkijonossa tulee vastaan välilyönti, suoritetaan if-lause.
+            if (i == tekstisyotteenPituus || syote.charAt(i) == erotin) {
+                // Jos sanan pituus on suurempi kuin siihen asti pisimmän sanan pituus
+                // niin nykyisen sanan pituus on pisin sanan pituus.
+                if (sananPituus > pisinSananPituus) {
+                    pisinSananPituus = sananPituus;
                 }
-                // Joka kierroksella vähennetään yksi, jotta päästään liikkumaan merkkijonossa taaksepäin.
-                tutkittavaIndeksi--;
-            // Tutkitaan indeksejä niin kauan kuin tutkittava indeksi on suurempi tai yhtäsuuri kuin nolla
-            // ja erotinta ei ole vielä löytynyt.
-            } while (tutkittavaIndeksi >= 0 && !erotinLoytyi);
-            // System.out.println(rivinLoppu);
-
-            // Esitellään ja nollataan laskuri, joka pitää kirjaa riville tulostetuista merkeistä.
-            int rivinTulostetutMerkit = 0;
-
-            // Niin kauan kuin tulostettava indeksi saavuttaa rivin viimeisen indeksin tulostetaan
-            // merkki tulostettavasta indeksistä.
-            while (tulostettavaIndeksi <= rivinViimIndeksi) {
-                System.out.print(syote.charAt(tulostettavaIndeksi));
-                // Kasvatetaan laskureita.
-                rivinTulostetutMerkit++;
-                tulostettavaIndeksi++;
+                // Nollataan sananPituus.
+                sananPituus = 0;
+            // Jos i ei ole yhtä suuri kuin tekstisyotteenPituus eikä merkkijonossa
+            // tule vastaan välilyöntiä, kasvatetaan sananPituus-muuttujan arvoa.
+            } else {
+                sananPituus++;
             }
-            // Kasvatetaan vielä tulostettavaa indeksiä yhdellä, jotta päästään seuraavalla kierroksella
-            // erottimen ohi seuraavan rivin ekaan tulostettavaan merkkiin.
-            tulostettavaIndeksi++;
+            // Syöte sisältää liian pitkän sanan, jos pisimmän sanan pituus on suurempi
+            // kuin tekstialueen leveys.
+            liianPitkaSana = pisinSananPituus > rivinPituus;
+        }
 
-            // Jos tulostettujen merkkien määrä on yhtä suuri tai suurempi kuin tekstisyotteenPituus,
-            // on kaikki merkit tulostettu.
-            if (tulostettavaIndeksi >= tekstisyotteenPituus) {
-                kaikkiRivitetty = true;
-            }
+        return liianPitkaSana;
+    }
 
-            // Esitellään ja alustetaan muuttuja, joka on yhtä kuin tekstialueen leveys
-            // josta on vähennetty rivin tulostetut merkit sekä RIVINPAATOSMERKIN viemä yksi paikka.
-            int riviaJaljella = tekstialueenLeveys - rivinTulostetutMerkit - 1;
+    public static String rivinMerkit(String syote, char erotin, int rivinPituus, int rivinEnsimmainenIndeksi) {
+        int tutkittavaIndeksi = rivinEnsimmainenIndeksi;
+        String rivi = "";
 
-            // Silmukassa tulostetaan erotinta niin kauan kuin rivissä on sille tilaa.
-            for (int k = 0; k < riviaJaljella; k++) {
-                System.out.print(EROTIN);
-            }
-            // Lopuksi tulostetaan päätösmerkki.
-            System.out.println(RIVINPAATOSMERKKI);
-            // Käännetään lippu, ensimmäisen rivin päättymisen merkiksi.
-            ekaRivi = false;
+        int rivinViimTulostettavaIndeksi = etsiRivinViimTulostettavaIndeksi(syote, erotin, rivinPituus, rivinEnsimmainenIndeksi);
 
-        // Tulostetaan rivejä, niin kauan kuin kaikki on rivitetty.
-        } while (!kaikkiRivitetty);
+        while (tutkittavaIndeksi <= rivinViimTulostettavaIndeksi) {
+            rivi = rivi + syote.charAt(tutkittavaIndeksi);
+            tutkittavaIndeksi++;
+        }
+        return rivi;
+    }
+
+    public static String taytaRivi(String vajaaRivi, int rivinPituus, char rivinpaatosmerkki) {
+        String tulos = vajaaRivi;
+        int erottimienMaara = rivinPituus - vajaaRivi.length();
+        for (int i = 0; i < erottimienMaara; i++) {
+            tulos = tulos + ' ';
+        }
+        tulos = tulos + rivinpaatosmerkki;
+        return tulos;
+    }
+
+    public static String rivita(String syote, char erotin, int rivinPituus, char rivinpaatosmerkki) {
+        int rivinEnsimmainenIndeksi = 0;
+        String tulos = "";
+        String rivi = "";
+        do {
+            rivi = rivinMerkit(syote, erotin, rivinPituus, rivinEnsimmainenIndeksi);
+            rivinEnsimmainenIndeksi = rivinEnsimmainenIndeksi + rivi.length() - 1 + 2;
+            rivi = taytaRivi(rivi, rivinPituus, rivinpaatosmerkki) + "\n";
+            tulos = tulos + rivi;
+        } while (rivinEnsimmainenIndeksi < syote.length());
+        return tulos;
     }
 }
