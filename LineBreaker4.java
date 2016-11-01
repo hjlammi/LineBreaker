@@ -47,4 +47,18 @@ public class LineBreaker4 {
 
         return liianPitkaSana;
     }
+
+    public static String rivinMerkit(String syote, char erotin, int rivinPituus, int rivinEnsimmainenIndeksi) {
+        int tutkittavaIndeksi = 0;
+        String rivi = "";
+
+        int rivinViimTulostettavaIndeksi = etsiRivinViimTulostettavaIndeksi(syote, erotin, rivinPituus, rivinEnsimmainenIndeksi);
+
+        while (tutkittavaIndeksi <= rivinViimTulostettavaIndeksi) {
+            rivi = rivi + syote.charAt(tutkittavaIndeksi);
+            tutkittavaIndeksi++;
+        }
+
+        return rivi;
+    }
 }

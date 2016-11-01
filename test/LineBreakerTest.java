@@ -43,4 +43,9 @@ public class LineBreakerTest {
     public void liianPitkaSana() {
         assertEquals(true, LineBreaker4.tutkiOnkoLiianPitkiaSanoja("Teersting, testing. One, two, three.", ' ', 8));
     }
+
+    @Test
+    public void ekanRivinTulostus() {
+        assertEquals("Testing,", LineBreaker4.rivinMerkit("Testing, testing. One, two, three.", ' ', 8, 0));
+    }
 }
