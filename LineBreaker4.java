@@ -49,7 +49,7 @@ public class LineBreaker4 {
     }
 
     public static String rivinMerkit(String syote, char erotin, int rivinPituus, int rivinEnsimmainenIndeksi) {
-        int tutkittavaIndeksi = 0;
+        int tutkittavaIndeksi = rivinEnsimmainenIndeksi;
         String rivi = "";
 
         int rivinViimTulostettavaIndeksi = etsiRivinViimTulostettavaIndeksi(syote, erotin, rivinPituus, rivinEnsimmainenIndeksi);

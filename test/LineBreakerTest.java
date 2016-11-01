@@ -48,4 +48,9 @@ public class LineBreakerTest {
     public void ekanRivinTulostus() {
         assertEquals("Testing,", LineBreaker4.rivinMerkit("Testing, testing. One, two, three.", ' ', 8, 0));
     }
+
+    @Test
+    public void tokanRivinTulostus() {
+        assertEquals("testing.", LineBreaker4.rivinMerkit("Testing, testing. One, two, three.", ' ', 8, 9));
+    }
 }
