@@ -3,14 +3,14 @@ public class LineBreaker4 {
         boolean erotinLoytyi = false;
         int tutkittavaIndeksi = 0;
         int rivinViimTulostettavaIndeksi = 0;
+        int rivinViimTutkittavaIndeksi = 8;
 
         do {
             if (syote.charAt(tutkittavaIndeksi) == erotin) {
                 rivinViimTulostettavaIndeksi = tutkittavaIndeksi - 1;
-                erotinLoytyi = true;
             }
             tutkittavaIndeksi++;
-        } while (!erotinLoytyi);
+        } while (tutkittavaIndeksi <= rivinViimTutkittavaIndeksi);
         return rivinViimTulostettavaIndeksi;
     }
 }
