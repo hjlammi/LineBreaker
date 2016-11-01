@@ -53,26 +53,7 @@ public class LineBreaker {
 
                         tekstisyotteenPituus = tekstisyote.length();
 
-                        for (int i = 0; i <= tekstisyotteenPituus; i++) {
-                            // Jos i on yhtä suuri kuin tekstisyotteenPituus tai
-                            // tekstisyote-merkkijonossa tulee vastaan välilyönti, suoritetaan if-lause.
-                            if (i == tekstisyotteenPituus || tekstisyote.charAt(i) == EROTIN) {
-                                // Jos sanan pituus on suurempi kuin siihen asti pisimmän sanan pituus
-                                // niin nykyisen sanan pituus on pisin sanan pituus.
-                                if (sananPituus > pisinSananPituus) {
-                                    pisinSananPituus = sananPituus;
-                                }
-                                // Nollataan sananPituus.
-                                sananPituus = 0;
-                            // Jos i ei ole yhtä suuri kuin tekstisyotteenPituus eikä merkkijonossa
-                            // tule vastaan välilyöntiä, kasvatetaan sananPituus-muuttujan arvoa.
-                            } else {
-                                sananPituus++;
-                            }
-                            // Syöte sisältää liian pitkän sanan, jos pisimmän sanan pituus on suurempi
-                            // kuin tekstialueen leveys.
-                            liianPitkaSana = pisinSananPituus >= tekstialueenLeveys;
-                        }
+                        liianPitkaSana = tutkiOnkoLiianPitkiaSanoja(tekstisyote, EROTIN, tekstialueenLeveys);
 
                         for (int j = 0; j < tekstisyotteenPituus; j++) {
                             if (tekstisyote.charAt(0) == EROTIN
