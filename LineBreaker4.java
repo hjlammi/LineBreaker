@@ -60,4 +60,8 @@ public class LineBreaker4 {
         }
         return rivi;
     }
+
+    public static String taytaRivi(String vajaaRivi, int rivinPituus, char rivinpaatosmerkki) {
+        return vajaaRivi + rivinpaatosmerkki;
+    }
 }
