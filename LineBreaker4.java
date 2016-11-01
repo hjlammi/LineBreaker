@@ -65,9 +65,9 @@ public class LineBreaker4 {
         String tulos = vajaaRivi;
         int erottimienMaara = rivinPituus - vajaaRivi.length();
         for (int i = 0; i < erottimienMaara; i++) {
-            vajaaRivi = vajaaRivi + ' ';
+            tulos = tulos + ' ';
         }
-        tulos = vajaaRivi + rivinpaatosmerkki;
+        tulos = tulos + rivinpaatosmerkki;
         return tulos;
     }
 }
