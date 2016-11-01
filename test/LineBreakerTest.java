@@ -58,4 +58,9 @@ public class LineBreakerTest {
     public void vikanRivinTulostus() {
         assertEquals("three.", LineBreaker4.rivinMerkit("Testing, testing. One, two, three.", ' ', 8, 28));
     }
+
+    @Test
+    public void vikanRivinTulostusRivinPituus20() {
+        assertEquals("three.", LineBreaker4.rivinMerkit("Testing, testing. One, two, three.", ' ', 20, 28));
+    }
 }
