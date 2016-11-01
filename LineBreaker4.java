@@ -4,13 +4,17 @@ public class LineBreaker4 {
         int tutkittavaIndeksi = rivinEnsimmainenIndeksi;
         int rivinViimTulostettavaIndeksi = 0;
         int rivinViimTutkittavaIndeksi = rivinEnsimmainenIndeksi + rivinPituus;
+        int syotteenViimIndeksi = syote.length() - 1;
 
         do {
             if (syote.charAt(tutkittavaIndeksi) == erotin) {
                 rivinViimTulostettavaIndeksi = tutkittavaIndeksi - 1;
+            } else if (tutkittavaIndeksi >= syotteenViimIndeksi) {
+                rivinViimTulostettavaIndeksi = syotteenViimIndeksi;
+                erotinLoytyi = true;
             }
             tutkittavaIndeksi++;
-        } while (tutkittavaIndeksi <= rivinViimTutkittavaIndeksi);
+        } while (tutkittavaIndeksi <= rivinViimTutkittavaIndeksi && !erotinLoytyi);
         return rivinViimTulostettavaIndeksi;
     }
 }

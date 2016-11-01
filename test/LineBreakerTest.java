@@ -23,4 +23,9 @@ public class LineBreakerTest {
     public void viimIndeksiTokanRivinLopussa() {
         assertEquals(16, LineBreaker4.etsiRivinViimTulostettavaIndeksi("Testing, testing. One, two, three.", ' ', 8, 9));
     }
+
+    @Test
+    public void viimIndeksiSyotteenLopussa() {
+        assertEquals(33, LineBreaker4.etsiRivinViimTulostettavaIndeksi("Testing, testing. One, two, three.", ' ', 8, 28));
+    }
 }
