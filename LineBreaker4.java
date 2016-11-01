@@ -58,7 +58,6 @@ public class LineBreaker4 {
             rivi = rivi + syote.charAt(tutkittavaIndeksi);
             tutkittavaIndeksi++;
         }
-
         return rivi;
     }
 }
