@@ -62,6 +62,12 @@ public class LineBreaker4 {
     }
 
     public static String taytaRivi(String vajaaRivi, int rivinPituus, char rivinpaatosmerkki) {
-        return vajaaRivi + rivinpaatosmerkki;
+        String tulos = vajaaRivi;
+        int erottimienMaara = rivinPituus - vajaaRivi.length();
+        for (int i = 0; i < erottimienMaara; i++) {
+            vajaaRivi = vajaaRivi + ' ';
+        }
+        tulos = vajaaRivi + rivinpaatosmerkki;
+        return tulos;
     }
 }

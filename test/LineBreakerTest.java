@@ -73,4 +73,9 @@ public class LineBreakerTest {
     public void taytaTaysiRivi () {
         assertEquals("Testing,/", LineBreaker4.taytaRivi("Testing,", 8, '/'));
     }
+
+    @Test
+    public void taytaVajaaRivi () {
+        assertEquals("One, two   /", LineBreaker4.taytaRivi("One, two", 11, '/'));
+    }
 }
