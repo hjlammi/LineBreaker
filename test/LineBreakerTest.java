@@ -89,4 +89,15 @@ public class LineBreakerTest {
                           "three.  /\n";
         assertEquals(odotettu, LineBreaker4.rivita(syote, ' ', 8, '/'));
     }
+
+    @Test
+    public void rivitaJavaVitsi15() {
+        String syote = "Q: What did the Java code say to the C code. A: You have got no class.";
+        String odotettu = "Q: What did the/\n" +
+                          "Java code say  /\n" +
+                          "to the C code. /\n" +
+                          "A: You have got/\n" +
+                          "no class.      /\n";
+        assertEquals(odotettu, LineBreaker4.rivita(syote, ' ', 15, '/'));
+    }
 }
