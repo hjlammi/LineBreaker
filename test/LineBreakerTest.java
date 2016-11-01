@@ -78,4 +78,15 @@ public class LineBreakerTest {
     public void taytaVajaaRivi () {
         assertEquals("One, two   /", LineBreaker4.taytaRivi("One, two", 11, '/'));
     }
+
+    @Test
+    public void rivitaTesting8() {
+        String syote = "Testing, testing. One, two, three.";
+        String odotettu = "Testing,/\n" +
+                          "testing./\n" +
+                          "One,    /\n" +
+                          "two,    /\n" +
+                          "three.  /\n";
+        assertEquals(odotettu, LineBreaker4.rivita(syote, ' ', 8, '/'));
+    }
 }

@@ -70,4 +70,17 @@ public class LineBreaker4 {
         tulos = tulos + rivinpaatosmerkki;
         return tulos;
     }
+
+    public static String rivita(String syote, char erotin, int rivinPituus, char rivinpaatosmerkki) {
+        int rivinEnsimmainenIndeksi = 0;
+        String tulos = "";
+        String rivi = "";
+        do {
+            rivi = rivinMerkit(syote, erotin, rivinPituus, rivinEnsimmainenIndeksi);
+            rivinEnsimmainenIndeksi = rivinEnsimmainenIndeksi + rivi.length() - 1 + 2;
+            rivi = taytaRivi(rivi, rivinPituus, rivinpaatosmerkki) + "\n";
+            tulos = tulos + rivi;
+        } while (rivinEnsimmainenIndeksi < syote.length());
+        return tulos;
+    }
 }
