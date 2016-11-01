@@ -33,4 +33,14 @@ public class LineBreakerTest {
     public void viimIndeksiRivinPituus13() {
         assertEquals(16, LineBreaker4.etsiRivinViimTulostettavaIndeksi("Testing, testing. One, two, three.", ' ', 20, 0));
     }
+
+    @Test
+    public void eiLiianPitkiaSanoja() {
+        assertEquals(false, LineBreaker4.tutkiOnkoLiianPitkiaSanoja("Testing, testing. One, two, three.", ' ', 8));
+    }
+
+    @Test
+    public void liianPitkaSana() {
+        assertEquals(true, LineBreaker4.tutkiOnkoLiianPitkiaSanoja("Teersting, testing. One, two, three.", ' ', 8));
+    }
 }
