@@ -117,7 +117,8 @@ public class LineBreaker {
     }
 
     // Metodissa etsitään syotteestä rivin viimeinen tulostettava indeksi.
-    public static int etsiRivinViimTulostettavaIndeksi(String tekstisyote, char erotin, int tekstialueenLeveys, int rivinEnsimmainenIndeksi) {
+    public static int etsiRivinViimTulostettavaIndeksi(String tekstisyote, char erotin, int tekstialueenLeveys,
+    int rivinEnsimmainenIndeksi) {
         // Esitellään muuttujat ja alustetaan muuttujat.
         boolean erotinLoytyi = false;
         // Aloitetaan tutkiminen rivin ensimmäisestä indeksistä.
@@ -184,24 +185,35 @@ public class LineBreaker {
         return liianPitkaSana;
     }
 
-    public static String rivinMerkit(String tekstisyote, char erotin, int tekstialueenLeveys, int rivinEnsimmainenIndeksi) {
+    // Metodi sijoittaa rivi-muuttujaan riville mahtuvat merkit.
+    public static String rivinMerkit(String tekstisyote, char erotin, int tekstialueenLeveys,
+    int rivinEnsimmainenIndeksi) {
+        // Esitellään ja alustetaan muuttujat. Aloitetaan kirjaaminen rivin ensimmäisestä indeksistä.
         int tutkittavaIndeksi = rivinEnsimmainenIndeksi;
+        // Rivi on vielä tyhjä.
         String rivi = "";
 
-        int rivinViimTulostettavaIndeksi = etsiRivinViimTulostettavaIndeksi(tekstisyote, erotin, tekstialueenLeveys, rivinEnsimmainenIndeksi);
+        // Saadaan rivin viimeisen tulostettavan indeksin arvo sitä selvittelevästä metodista.
+        int rivinViimTulostettavaIndeksi = etsiRivinViimTulostettavaIndeksi(tekstisyote, erotin, tekstialueenLeveys,
+        rivinEnsimmainenIndeksi);
 
+        // Tutkittavan indeksin merkki lisätään rivi-muuttujaan, niin kauan kuin saavutetaan rivin
+        // viimeinen tulostettava indeksi, jossa sijaitsee siis rivin viimeinen merkki.
         while (tutkittavaIndeksi <= rivinViimTulostettavaIndeksi) {
             rivi = rivi + tekstisyote.charAt(tutkittavaIndeksi);
             tutkittavaIndeksi++;
         }
+        // Metodi palauttaa tuloksena muodostuneen rivi-merkkijonon.
         return rivi;
     }
 
+    // Metodi täyttää rivin erottimilla
     public static String taytaRivi(String vajaaRivi, int tekstialueenLeveys, char rivinpaatosmerkki) {
         String tulos = vajaaRivi;
+        char erotin = ' ';
         int erottimienMaara = tekstialueenLeveys - vajaaRivi.length();
         for (int i = 0; i < erottimienMaara; i++) {
-            tulos = tulos + ' ';
+            tulos = tulos + erotin;
         }
         tulos = tulos + rivinpaatosmerkki;
         return tulos;
