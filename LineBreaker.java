@@ -3,8 +3,9 @@
  *
  * Heidi Lammi-Mihaljov, Lammi-Mihaljov.Heidi.J@student.uta.fi
  *
- * Viimeksi muokattu: 27.10.2016.
+ * Viimeksi muokattu: 2.11.2016.
  *
+ * Ohjelma pyytää käyttäjältä tekstialueen leveyden ja tekstisyötteen ja rivittää
  */
 
 public class LineBreaker {
@@ -20,7 +21,6 @@ public class LineBreaker {
         boolean syoteOk = false;
         String tekstisyote = "";
         int tekstisyotteenPituus = 0;
-        int sananPituus = 0;
         int pisinSananPituus;
         boolean liianPitkaSana = true;
         char vastaus;
