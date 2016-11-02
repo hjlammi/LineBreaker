@@ -21,7 +21,6 @@ public class LineBreaker {
         boolean syoteOk = false;
         String tekstisyote = "";
         int tekstisyotteenPituus = 0;
-        int pisinSananPituus;
         boolean liianPitkaSana = true;
         char vastaus;
         boolean vastausOK = false;
@@ -42,9 +41,6 @@ public class LineBreaker {
                 if (tekstialueenLeveys >= MINTEKSTINLEVEYS) {
                     syoteOk = true;
                     do {
-                        // Nollataan pisinSananPituus aina silmukan alussa, kun lähdetään
-                        // pyytämään uutta merkkijonoa.
-                        pisinSananPituus = 0;
                         // Käännetään silmukan alussa lippu.
                         erotinOk = true;
                         // Pyydetään käyttäjää antamaan merkkijono.
