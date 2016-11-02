@@ -135,21 +135,30 @@ public class LineBreaker {
                 rivinViimTulostettavaIndeksi = tutkittavaIndeksi - 1;
             // Jos taas tutkittava indeksi saavuttaa tekstisyotteen viimeisen indeksin,
             // on rivin viimeinen tulostettava indeksi tekstisyotteen viimeinen indeksi.
+            // Siinä tapauksessa erotin on löytynyt ja halutaan silmukasta pois.
             } else if (tutkittavaIndeksi >= syotteenViimIndeksi) {
                 rivinViimTulostettavaIndeksi = syotteenViimIndeksi;
                 erotinLoytyi = true;
             }
+            // Kasvatetaan tutkittavaa indeksiä yhdellä aina silmukan lopuksi.
             tutkittavaIndeksi++;
+        // Etsitään rivin viimeistä indeksiä niin kauan kuin tutkittava indeksi on
+        // pienempi tai yhtä suuri kuin rivin viimeinen tutkittava indeksi eli rivin loppu
+        // tai kunnes erotin löytyy.
         } while (tutkittavaIndeksi <= rivinViimTutkittavaIndeksi && !erotinLoytyi);
+        // Palautetaan metodin antama tulos.
         return rivinViimTulostettavaIndeksi;
     }
 
+    // Metodi tutkii onko tekstisyötteessä liian pitkiä sanoja.
     public static boolean tutkiOnkoLiianPitkiaSanoja(String tekstisyote, char erotin, int tekstialueenLeveys) {
+        // Esitellään ja alustetaan muuttujat.
         int tekstisyotteenPituus = tekstisyote.length();
         int sananPituus = 0;
         int pisinSananPituus = 0;
-        boolean liianPitkaSana = true;
 
+        // Tutkitaan onko liian pitkää sanaa, niin kauan kuin laskuri-i on pienempi tai yhtä
+        // suuri kuin tekstisyotteenPituus.
         for (int i = 0; i <= tekstisyotteenPituus; i++) {
             // Jos i on yhtä suuri kuin tekstisyotteenPituus tai
             // tekstisyote-merkkijonossa tulee vastaan välilyönti, suoritetaan if-lause.
@@ -159,18 +168,19 @@ public class LineBreaker {
                 if (sananPituus > pisinSananPituus) {
                     pisinSananPituus = sananPituus;
                 }
-                // Nollataan sananPituus.
+                // Nollataan sananPituus ennen kuin aletaan tutkia seuraavan sanan pituutta..
                 sananPituus = 0;
             // Jos i ei ole yhtä suuri kuin tekstisyotteenPituus eikä merkkijonossa
             // tule vastaan välilyöntiä, kasvatetaan sananPituus-muuttujan arvoa.
             } else {
                 sananPituus++;
             }
-            // Syöte sisältää liian pitkän sanan, jos pisimmän sanan pituus on suurempi
-            // kuin tekstialueen leveys.
-            liianPitkaSana = pisinSananPituus > tekstialueenLeveys;
         }
+        // Esitellään muuttuja. Syöte sisältää liian pitkän sanan, jos pisimmän sanan pituus on suurempi
+        // kuin tekstialueen leveys.
+        boolean liianPitkaSana = pisinSananPituus > tekstialueenLeveys;
 
+        // Palautetaan muuttujan saama arvo (true/false).
         return liianPitkaSana;
     }
 
