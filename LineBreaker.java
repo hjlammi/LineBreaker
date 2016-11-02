@@ -25,7 +25,6 @@ public class LineBreaker {
         char vastaus;
         boolean vastausOK = false;
         boolean erotinOk = true;
-        boolean kaikkiRivitetty = false;
 
         // Kerrotaan käyttäjälle, että pätkitään rivejä.
         System.out.println("Hello! I break lines.");
@@ -41,7 +40,7 @@ public class LineBreaker {
                 if (tekstialueenLeveys >= MINTEKSTINLEVEYS) {
                     syoteOk = true;
                     do {
-                        // Käännetään silmukan alussa lippu.
+                        // Oletetaan, että erotin on ok.
                         erotinOk = true;
                         // Pyydetään käyttäjää antamaan merkkijono.
                         System.out.println("Enter a line:");
@@ -49,6 +48,8 @@ public class LineBreaker {
 
                         tekstisyotteenPituus = tekstisyote.length();
 
+                        // Tarkistetaan onko liian pitkiä sanoja, ja sijoitetaan tulos (true/false)
+                        // liianPitkaSana-muuttujaan.
                         liianPitkaSana = tutkiOnkoLiianPitkiaSanoja(tekstisyote, EROTIN, tekstialueenLeveys);
 
                         for (int j = 0; j < tekstisyotteenPituus; j++) {
