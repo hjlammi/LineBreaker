@@ -207,11 +207,12 @@ public class LineBreaker {
         return rivi;
     }
 
-    // Metodi täyttää rivin erottimilla
-    public static String taytaRivi(String vajaaRivi, int tekstialueenLeveys, char rivinpaatosmerkki) {
-        String tulos = vajaaRivi;
+    // Metodi täyttää rivin lopun erottimilla ja rivin päätösmerkillä.
+    public static String taytaRivi(String rivitetytMerkit, int tekstialueenLeveys, char rivinpaatosmerkki) {
+        // Alustetaan tulos
+        String tulos = rivitetytMerkit;
         char erotin = ' ';
-        int erottimienMaara = tekstialueenLeveys - vajaaRivi.length();
+        int erottimienMaara = tekstialueenLeveys - rivitetytMerkit.length();
         for (int i = 0; i < erottimienMaara; i++) {
             tulos = tulos + erotin;
         }
