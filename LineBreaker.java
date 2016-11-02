@@ -6,6 +6,7 @@
  * Viimeksi muokattu: 2.11.2016.
  *
  * Ohjelma pyytää käyttäjältä tekstialueen leveyden ja tekstisyötteen ja rivittää
+ * annetun syötteen tekstialueen leveyden mukaan.
  */
 
 public class LineBreaker {
@@ -209,27 +210,51 @@ public class LineBreaker {
 
     // Metodi täyttää rivin lopun erottimilla ja rivin päätösmerkillä.
     public static String taytaRivi(String rivitetytMerkit, int tekstialueenLeveys, char rivinpaatosmerkki) {
-        // Alustetaan tulos
+        // Alustetaan tulos vastaamaan jo rivitettyjä merkkejä.
         String tulos = rivitetytMerkit;
+        // Asetetaan erotin.
         char erotin = ' ';
+        // Erottimien määrä saadaan kun vähennetään tekstialueen leveydestä jo rivitettyjen merkkien määrä.
         int erottimienMaara = tekstialueenLeveys - rivitetytMerkit.length();
+
+        // Silmukassa lisätään tulos-merkkijonoon erottimia niin kauan kuin tarvittava erottimien
+        // määrä tulee täyteen.
         for (int i = 0; i < erottimienMaara; i++) {
             tulos = tulos + erotin;
         }
+
+        // Lopuksi tulokseen lisätään vielä rivinpaatosmerkki.
         tulos = tulos + rivinpaatosmerkki;
+        // Metodi palauttaa tuloksena merkkijonon, johon on lisätty tarvittava määrä erottimia sekä loppuun
+        // rivin päätösmerkki.
         return tulos;
     }
 
+    // rivita-metodi yhdistää kaikki metodit, joita tarvitaan tekstisyotteen rivittämiseen.
     public static String rivita(String tekstisyote, char erotin, int tekstialueenLeveys, char rivinpaatosmerkki) {
+        // Aletaan rivittämään indeksistä 0 eli tekstisyötteen alusta.
         int rivinEnsimmainenIndeksi = 0;
+        // Muuttujat tulos ja rivi ovat vielä tässä vaiheessa tyhjiä.
         String tulos = "";
         String rivi = "";
+
+
         do {
+            // Rivi-muuttujaan saadaan rivissä olevat merkit rivinMerkit-metodista.
             rivi = rivinMerkit(tekstisyote, erotin, tekstialueenLeveys, rivinEnsimmainenIndeksi);
+            // Päivitetään rivin ensimmäiseksi indeksiksi luku, joka saadaan, kun lasketaan yhteen edellisen
+            // rivin ensimmäinen indeksi, rivi-merkkijonon viimeinen indeksi (rivin pituus - 1) sekä 2, jolla päästään
+            // rivin viimeisestä indeksistä erottimen ohi seuraavan rivin ensimmäiseen indeksiin.
             rivinEnsimmainenIndeksi = rivinEnsimmainenIndeksi + rivi.length() - 1 + 2;
+            // Riviin saa uuden arvon, kun taytaRivi lisää siihen tarvittavan määrän erottimia sekä rivin päätösmerkin.
+            // Lisätään riviin vielä rivinvaihto.
             rivi = taytaRivi(rivi, tekstialueenLeveys, rivinpaatosmerkki) + "\n";
+            // Tulokseen lisätään joka kierroksella uusi rivi.
             tulos = tulos + rivi;
+        // Lisätään rivejä tulos-muuttujaan, kunnes tekstisyöte päästään loppuun.
         } while (rivinEnsimmainenIndeksi < tekstisyote.length());
+
+        // Metodi palauttaa tuloksen, jossa on siis rivitettynä kaikki tekstisyötteen merkit.
         return tulos;
     }
 }
