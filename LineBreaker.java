@@ -117,13 +117,13 @@ public class LineBreaker {
     }
 
     // Metodissa etsitään syotteestä rivin viimeinen tulostettava indeksi.
-    public static int etsiRivinViimTulostettavaIndeksi(String syote, char erotin, int rivinPituus, int rivinEnsimmainenIndeksi) {
+    public static int etsiRivinViimTulostettavaIndeksi(String syote, char erotin, int tekstialueenLeveys, int rivinEnsimmainenIndeksi) {
         // Esitellään muuttujat ja alustetaan muuttujat.
         boolean erotinLoytyi = false;
         // Aloitetaan tutkiminen rivin ensimmäisestä indeksistä.
         int tutkittavaIndeksi = rivinEnsimmainenIndeksi;
         int rivinViimTulostettavaIndeksi = 0;
-        int rivinViimTutkittavaIndeksi = rivinEnsimmainenIndeksi + rivinPituus;
+        int rivinViimTutkittavaIndeksi = rivinEnsimmainenIndeksi + tekstialueenLeveys;
         int syotteenViimIndeksi = syote.length() - 1;
 
         do {
@@ -138,7 +138,7 @@ public class LineBreaker {
         return rivinViimTulostettavaIndeksi;
     }
 
-    public static boolean tutkiOnkoLiianPitkiaSanoja(String syote, char erotin, int rivinPituus) {
+    public static boolean tutkiOnkoLiianPitkiaSanoja(String syote, char erotin, int tekstialueenLeveys) {
         int tekstisyotteenPituus = syote.length();
         int sananPituus = 0;
         int pisinSananPituus = 0;
@@ -162,17 +162,17 @@ public class LineBreaker {
             }
             // Syöte sisältää liian pitkän sanan, jos pisimmän sanan pituus on suurempi
             // kuin tekstialueen leveys.
-            liianPitkaSana = pisinSananPituus > rivinPituus;
+            liianPitkaSana = pisinSananPituus > tekstialueenLeveys;
         }
 
         return liianPitkaSana;
     }
 
-    public static String rivinMerkit(String syote, char erotin, int rivinPituus, int rivinEnsimmainenIndeksi) {
+    public static String rivinMerkit(String syote, char erotin, int tekstialueenLeveys, int rivinEnsimmainenIndeksi) {
         int tutkittavaIndeksi = rivinEnsimmainenIndeksi;
         String rivi = "";
 
-        int rivinViimTulostettavaIndeksi = etsiRivinViimTulostettavaIndeksi(syote, erotin, rivinPituus, rivinEnsimmainenIndeksi);
+        int rivinViimTulostettavaIndeksi = etsiRivinViimTulostettavaIndeksi(syote, erotin, tekstialueenLeveys, rivinEnsimmainenIndeksi);
 
         while (tutkittavaIndeksi <= rivinViimTulostettavaIndeksi) {
             rivi = rivi + syote.charAt(tutkittavaIndeksi);
@@ -181,9 +181,9 @@ public class LineBreaker {
         return rivi;
     }
 
-    public static String taytaRivi(String vajaaRivi, int rivinPituus, char rivinpaatosmerkki) {
+    public static String taytaRivi(String vajaaRivi, int tekstialueenLeveys, char rivinpaatosmerkki) {
         String tulos = vajaaRivi;
-        int erottimienMaara = rivinPituus - vajaaRivi.length();
+        int erottimienMaara = tekstialueenLeveys - vajaaRivi.length();
         for (int i = 0; i < erottimienMaara; i++) {
             tulos = tulos + ' ';
         }
@@ -191,14 +191,14 @@ public class LineBreaker {
         return tulos;
     }
 
-    public static String rivita(String syote, char erotin, int rivinPituus, char rivinpaatosmerkki) {
+    public static String rivita(String syote, char erotin, int tekstialueenLeveys, char rivinpaatosmerkki) {
         int rivinEnsimmainenIndeksi = 0;
         String tulos = "";
         String rivi = "";
         do {
-            rivi = rivinMerkit(syote, erotin, rivinPituus, rivinEnsimmainenIndeksi);
+            rivi = rivinMerkit(syote, erotin, tekstialueenLeveys, rivinEnsimmainenIndeksi);
             rivinEnsimmainenIndeksi = rivinEnsimmainenIndeksi + rivi.length() - 1 + 2;
-            rivi = taytaRivi(rivi, rivinPituus, rivinpaatosmerkki) + "\n";
+            rivi = taytaRivi(rivi, tekstialueenLeveys, rivinpaatosmerkki) + "\n";
             tulos = tulos + rivi;
         } while (rivinEnsimmainenIndeksi < syote.length());
         return tulos;
