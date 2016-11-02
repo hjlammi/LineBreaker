@@ -10,6 +10,7 @@
 
 public class LineBreaker {
     public static void main(String[] args) {
+        // Esitellään ja alustetaan vakiot.
         final int MINTEKSTINLEVEYS = 3;
         final char YES = 'y';
         final char NO = 'n';
@@ -17,6 +18,7 @@ public class LineBreaker {
         final String ERRORMESSAGE = "Error!";
         final char RIVINPAATOSMERKKI = '/';
 
+        // Esitellään ja alustetaan muut main-metodissa käytettävät muuttujat.
         int tekstialueenLeveys = 0;
         boolean syoteOk = false;
         String tekstisyote = "";
@@ -40,21 +42,30 @@ public class LineBreaker {
                 if (tekstialueenLeveys >= MINTEKSTINLEVEYS) {
                     syoteOk = true;
                     do {
-                        // Oletetaan, että erotin on ok.
+                        // Oletetaan aina silmukan alussa, että erotin on ok.
                         erotinOk = true;
                         // Pyydetään käyttäjää antamaan merkkijono.
                         System.out.println("Enter a line:");
                         tekstisyote = In.readString();
 
+                        // Alustetaan tekstisyotteenPituus käyttäjän antaman tekstisyotteen
+                        // mukaiseksi.
                         tekstisyotteenPituus = tekstisyote.length();
 
-                        // Tarkistetaan onko liian pitkiä sanoja, ja sijoitetaan tulos (true/false)
-                        // liianPitkaSana-muuttujaan.
+                        // Tarkistetaan erillisessä metodissa onko liian pitkiä sanoja,
+                        // ja sijoitetaan tulos (true/false) liianPitkaSana-muuttujaan.
                         liianPitkaSana = tutkiOnkoLiianPitkiaSanoja(tekstisyote, EROTIN, tekstialueenLeveys);
 
+                        // Tutkitaan, onko annettu tekstisyöte virheellinen eli onko
+                        // erotinta väärässä paikassa. Suoritetaan silmukkaa niin kauan kuin
+                        // laskuri on pienempi kuin tekstisyotteen pituus.
                         for (int j = 0; j < tekstisyotteenPituus; j++) {
+                            // Jos ensimmäisessä indeksissä on erotin...
                             if (tekstisyote.charAt(0) == EROTIN
+                            // ...tai jos viimeisessä indeksissä on erotin...
                             || (tekstisyote.charAt(tekstisyotteenPituus - 1) == EROTIN)
+                            // ...tai jos jossain kohti tekstisyötettä on kaksi erotinta peräkkäin,
+                            // tarkoittaa se sitä, että syöte ei ole oikeellinen eli että erotinok = false.
                             || ((tekstisyote.charAt(j) == EROTIN)
                             && (tekstisyote.charAt(j + 1) == EROTIN))) {
                                 erotinOk = false;
@@ -63,20 +74,23 @@ public class LineBreaker {
 
                         // Jos pisimmän sanan pituus on suurempi kuin tekstialueen leveys tai
                         // välilyönti on väärässä paikassa, tulostetaan virheilmoitus.
-                        // System.out.println("liianPitkaSana: " + liianPitkaSana);
-                        // System.out.println("erotinOk: " + erotinOk);
                         if (liianPitkaSana || !erotinOk) {
                             System.out.println(ERRORMESSAGE);
                         }
-                    // Suoritetaan silmukkaa niin kauan kuin merkkijonossa on liian pitkä osa
-                    // tai jos välilyönti on väärässä paikassa.
-                } while (liianPitkaSana || !erotinOk);
+                    // Suoritetaan silmukkaa niin kauan kuin merkkijonossa on liian pitkä sana
+                    // tai jos erotin on väärässä paikassa.
+                    } while (liianPitkaSana || !erotinOk);
+
+                // Tulostetaan virheilmoitus, jos tekstialueen leveys on pienempi kuin
+                // määritelty minimileveys.
                 } else {
                     System.out.println(ERRORMESSAGE);
                 }
+
             // Suoritetaan silmukkaa kunnes käyttäjä syöttää kelvollisen tekstialueen leveyden.
             } while (!syoteOk);
 
+            // Tulostetaan rivita-metodin avulla rivitetty teksti.
             System.out.print(rivita(tekstisyote, EROTIN, tekstialueenLeveys, RIVINPAATOSMERKKI));
 
             do {
@@ -102,8 +116,11 @@ public class LineBreaker {
         } while (vastaus == YES);
     }
 
+    // Metodissa etsitään syotteestä rivin viimeinen tulostettava indeksi.
     public static int etsiRivinViimTulostettavaIndeksi(String syote, char erotin, int rivinPituus, int rivinEnsimmainenIndeksi) {
+        // Esitellään muuttujat ja alustetaan muuttujat.
         boolean erotinLoytyi = false;
+        // Aloitetaan tutkiminen rivin ensimmäisestä indeksistä.
         int tutkittavaIndeksi = rivinEnsimmainenIndeksi;
         int rivinViimTulostettavaIndeksi = 0;
         int rivinViimTutkittavaIndeksi = rivinEnsimmainenIndeksi + rivinPituus;
