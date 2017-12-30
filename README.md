@@ -1,4 +1,4 @@
-# Laki1 - LineBreaker
+# LineBreaker
 
 This is the first bigger program I've ever written. It was an assignment at a Java programming course in the fall of 2016. 
 The program asks for a line width and a piece of text and wraps the text into the lines according to the line width.
